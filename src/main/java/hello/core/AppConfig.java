@@ -1,7 +1,6 @@
 package hello.core;
 
-import hello.core.discount.DiscountPoliicy;
-import hello.core.discount.FixDiscountPolicy;
+import hello.core.discount.DiscountPolicy;
 import hello.core.discount.RateDiscountPolicy;
 import hello.core.member.MemberRepository;
 import hello.core.member.MemberService;
@@ -43,11 +42,11 @@ public class AppConfig { //생성자 주입( 연결 )
     @Bean
     public OrderService orderService() {
         System.out.println("call AppConfig.orderService");
-        return new OrderServiceImpl(memberRepository(), discountPoliicy());
+        return new OrderServiceImpl(memberRepository(), discountPolicy());
     }
 
     @Bean
-    public DiscountPoliicy discountPoliicy() { //역할
+    public DiscountPolicy discountPolicy() { //역할
         return new RateDiscountPolicy();
 //        return new FixDiscountPolicy();
     }

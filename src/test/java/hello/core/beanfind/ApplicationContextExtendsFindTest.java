@@ -1,6 +1,6 @@
 package hello.core.beanfind;
 
-import hello.core.discount.DiscountPoliicy;
+import hello.core.discount.DiscountPolicy;
 import hello.core.discount.FixDiscountPolicy;
 import hello.core.discount.RateDiscountPolicy;
 import org.junit.jupiter.api.DisplayName;
@@ -22,13 +22,13 @@ public class ApplicationContextExtendsFindTest {
     @DisplayName("부모 타입으로 조회시, 자식이 둘 이상 있으면, 중복 요류가 발생한다")
     void findBeanByParentTypeDuplicate() {
         assertThrows(NoUniqueBeanDefinitionException.class,
-            () -> ac.getBean(DiscountPoliicy.class));
+            () -> ac.getBean(DiscountPolicy.class));
     }
 
     @Test
     @DisplayName("부모 타입으로 모두 조회하기")
     void findAllBeanByParentType() {
-        Map<String, DiscountPoliicy> beansOfType = ac.getBeansOfType(DiscountPoliicy.class);
+        Map<String, DiscountPolicy> beansOfType = ac.getBeansOfType(DiscountPolicy.class);
         for (String key : beansOfType.keySet()) {
             System.out.println("key = " + key + " value = " + beansOfType.get(key));
         }
@@ -46,12 +46,12 @@ public class ApplicationContextExtendsFindTest {
     @Configuration
     static class TestConfig {
         @Bean
-        public DiscountPoliicy rateDiscountPolicy() {
+        public DiscountPolicy rateDiscountPolicy() {
             return new RateDiscountPolicy();
         }
 
         @Bean
-        public DiscountPoliicy fixDiscountPolicy() {
+        public DiscountPolicy fixDiscountPolicy() {
             return new FixDiscountPolicy();
         }
     }
