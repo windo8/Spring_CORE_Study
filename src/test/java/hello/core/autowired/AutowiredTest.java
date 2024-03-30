@@ -24,7 +24,11 @@ public class AutowiredTest {
 
     static class TestBean {
 
-        //Member 는 스프링 빈이 아니다.
+        /*
+        * Autowired 매칭 정리
+        * 매칭 타입
+        * 타입 매칭의 결과가 2개이상일 때 필드명, 파라미터 명으로 빈 이름 매칭
+        */
 
         @Autowired(required = false) //기본값은 true
         public void setNoBean1(Member noBean1) {

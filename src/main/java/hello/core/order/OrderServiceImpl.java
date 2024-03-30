@@ -1,41 +1,28 @@
 package hello.core.order;
 
+import hello.core.annotation.MainDiscountPolicy;
 import hello.core.discount.DiscountPolicy;
 import hello.core.member.Member;
 import hello.core.member.MemberRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
+//@RequiredArgsConstructor //final이 붙은 객체의 생성자를 만들어줌
 public class OrderServiceImpl implements OrderService {
 
-    private MemberRepository memberRepository;
-    private DiscountPolicy discountPolicy;
-
-    /* (수정자 setter) 주입은 선택, 변경 가능성이 있는 의존관계에 사용*/
-    @Autowired
-    public void setMemberRepository(MemberRepository memberRepository) {
-        System.out.println("memberRepository = " + memberRepository);
-        this.memberRepository = memberRepository;
-    }
+    //생성자 주입을 사용하면 final 키워드 사용할 수 있다 혹시라도 값이 설정되지 않은 오류를 컴파일 시점에서 캐치 가능
+    // setter, 필드 주입은 웬만해서 사용하지 않음
+    private final MemberRepository memberRepository;
+    private final DiscountPolicy discountPolicy;
 
     @Autowired
-    public void setdiscountPolicy(DiscountPolicy discountPolicy) {
-        System.out.println("discountPolicy = " + discountPolicy);
-        this.discountPolicy = discountPolicy;
-    }
-
-    @Autowired
-    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
+    public OrderServiceImpl(MemberRepository memberRepository,@MainDiscountPolicy DiscountPolicy discountPolicy) {
         this.memberRepository = memberRepository;
         this.discountPolicy = discountPolicy;
     }
-      /*
-      * DIP를 위반하지 않고 interface에만 의존 할 수 있도록
-      * private discountPolicy discountPolicy;
-      * 하지만 이렇게 작성하면 NullPointExeption이 발생한다
-      *
-      * */
 
     @Override
     public Order createOrder(Long memberId, String itemName, int itemPrice) {
