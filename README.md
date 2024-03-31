@@ -1,2 +1,2 @@
 # Spring_CORE_Study
-# pure_java_exchange
+# 스프링 핵심 원리 - 기본
