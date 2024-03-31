@@ -29,6 +29,7 @@ public class AllBeanTest {
 
         int rateDiscountPrice = discountService.discount(member, 20000, "rateDiscountPolicy");
         Assertions.assertThat(rateDiscountPrice).isEqualTo(2000);
+
     }
 
     @Component
