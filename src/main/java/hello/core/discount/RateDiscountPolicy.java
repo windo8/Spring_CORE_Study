@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 //@Primary 는 기본값 처럼 동작하고 @Qualifier 는 매우 상세하게 동작 스프링은 자동보다는 수동이 우선 순위가 높다
 public class RateDiscountPolicy implements DiscountPolicy {
 
-    private int discountPercent = 10;
+    private final int discountPercent = 10;
 
     @Override
     public int discount(Member member, int price) {
